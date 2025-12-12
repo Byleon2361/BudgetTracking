@@ -213,3 +213,4 @@
 /home/major/Study/web_cw/Backend/obj/Debug/net10.0/Backend.pdb
 /home/major/Study/web_cw/Backend/obj/Debug/net10.0/Backend.genruntimeconfig.cache
 /home/major/Study/web_cw/Backend/obj/Debug/net10.0/ref/Backend.dll
+/home/major/Study/web_cw/backend/obj/Debug/net10.0/Backend.sourcelink.json
