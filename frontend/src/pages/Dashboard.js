@@ -265,38 +265,6 @@ const Dashboard = () => {
           )}
         </div>
       </div>
-
-      {/* Быстрые действия */}
-      <div style={styles.quickActions}>
-        <button 
-          onClick={handleAddTransaction}
-          style={styles.actionButton}
-        >
-          💰 Новая транзакция
-        </button>
-        <button 
-          onClick={handleAddBudget}
-          style={styles.actionButton}
-        >
-          📊 Новый бюджет
-        </button>
-        <button 
-          onClick={handleManageCategories}
-          style={styles.actionButton}
-        >
-          🏷️ Управление категориями
-        </button>
-      </div>
-
-      {/* Отладочная информация */}
-      <div style={styles.debug}>
-        <h3>Отладка:</h3>
-        <p>Количество бюджетов: {currentBudgets.length}</p>
-        <p>Количество транзакций: {recentTransactions.length}</p>
-        <button onClick={() => console.log('Test button clicked')}>
-          Тестовая кнопка (проверьте Console)
-        </button>
-      </div>
     </div>
   );
 };

@@ -9,7 +9,6 @@ import Dashboard from './pages/Dashboard';
 import Transactions from './pages/Transactions';
 import Categories from './pages/Categories';
 import Budgets from './pages/Budgets';
-import Profile from './pages/Profile';
 
 import './App.css';
 
@@ -47,12 +46,6 @@ function App() {
               <Route path="/budgets" element={
                 <ProtectedRoute>
                   <Budgets />
-                </ProtectedRoute>
-              } />
-              
-              <Route path="/profile" element={
-                <ProtectedRoute>
-                  <Profile />
                 </ProtectedRoute>
               } />
               

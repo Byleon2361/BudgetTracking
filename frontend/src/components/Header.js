@@ -27,7 +27,12 @@ const Header = () => {
               <Link to="/categories" style={styles.navLink}>Категории</Link>
               <Link to="/budgets" style={styles.navLink}>Бюджеты</Link>
               <div style={styles.userSection}>
-                <span style={styles.username}>👤 {user.username}</span>
+                <div style={styles.userInfo}>
+                  <div style={styles.username}>{user.unique_name}</div>
+                  {user.email && (
+                    <div style={styles.userEmail}>{user.email}</div>
+                  )}
+                </div>
                 <button onClick={handleLogout} style={styles.logoutButton}>
                   Выйти
                 </button>
@@ -80,16 +85,23 @@ const styles = {
     borderRadius: '4px',
     transition: 'background-color 0.3s',
   },
-  navLinkHover: {
-    backgroundColor: 'rgba(255,255,255,0.1)',
-  },
   userSection: {
     display: 'flex',
     alignItems: 'center',
-    gap: '1rem',
+    gap: '1.5rem',
+  },
+  userInfo: {
+    textAlign: 'right',
+    lineHeight: '1.4',
   },
   username: {
     color: 'white',
+    fontWeight: 'bold',
+    fontSize: '1rem',
+  },
+  userEmail: {
+    color: 'rgba(255,255,255,0.8)',
+    fontSize: '0.85rem',
   },
   logoutButton: {
     backgroundColor: 'transparent',
@@ -100,9 +112,22 @@ const styles = {
     cursor: 'pointer',
     transition: 'background-color 0.3s',
   },
-  logoutButtonHover: {
-    backgroundColor: 'rgba(255,255,255,0.1)',
-  },
 };
+
+// Добавляем CSS анимацию
+const styleSheet = document.styleSheets[0];
+if (styleSheet) {
+  styleSheet.insertRule(`
+    .navLink:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+  `, styleSheet.cssRules.length);
+
+  styleSheet.insertRule(`
+    .logoutButton:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+  `, styleSheet.cssRules.length);
+}
 
 export default Header;

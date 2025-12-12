@@ -1,7 +1,7 @@
 // contexts/AuthContext.js
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import { authAPI } from '../services/api';
-import { jwtDecode } from 'jwt-decode';  // Изменено на именованный импорт
+import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext();
 
@@ -16,12 +16,64 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem('user');
-    return savedUser ? JSON.parse(savedUser) : null;
+    if (savedUser) {
+      const parsedUser = JSON.parse(savedUser);
+      console.log('Loaded user from localStorage:', parsedUser);
+      return parsedUser;
+    }
+    return null;
   });
   
   const [token, setToken] = useState(() => {
-    return localStorage.getItem('token');
+    const savedToken = localStorage.getItem('token');
+    if (savedToken) {
+      console.log('Loaded token from localStorage');
+      return savedToken;
+    }
+    return null;
   });
+
+  // Функция для извлечения имени пользователя из декодированного токена
+  const extractUserInfo = (decodedToken) => {
+    console.log('Decoded JWT token:', decodedToken);
+    
+    // Проверяем различные варианты полей, которые могут содержать имя пользователя
+    if (decodedToken.sub) {
+      // Стандартное поле JWT для subject (обычно username или userId)
+      return {
+        ...decodedToken,
+        username: decodedToken.sub,
+        displayName: decodedToken.sub
+      };
+    }
+    
+    if (decodedToken.username) {
+      return {
+        ...decodedToken,
+        displayName: decodedToken.username
+      };
+    }
+    
+    if (decodedToken.name) {
+      return {
+        ...decodedToken,
+        displayName: decodedToken.name
+      };
+    }
+    
+    // Если ничего не нашли, используем email как отображаемое имя
+    if (decodedToken.email) {
+      return {
+        ...decodedToken,
+        displayName: decodedToken.email.split('@')[0] // Берем часть до @
+      };
+    }
+    
+    return {
+      ...decodedToken,
+      displayName: 'Пользователь'
+    };
+  };
 
   const login = async (data) => {
     try {
@@ -31,7 +83,11 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('token', token);
       setToken(token);
       
-      const userData = jwtDecode(token);  // Используем напрямую
+      const decodedToken = jwtDecode(token);
+      const userData = extractUserInfo(decodedToken);
+      
+      console.log('Extracted user data:', userData);
+      
       localStorage.setItem('user', JSON.stringify(userData));
       setUser(userData);
     } catch (error) {
