@@ -7,7 +7,7 @@ const TransactionForm = ({ transaction, onSave, onCancel }) => {
     description: '',
     date: new Date().toISOString().split('T')[0],
     categoryId: '',
-    type: '2' // По умолчанию расход
+    type: '2'
   });
   
   const [categories, setCategories] = useState([]);
@@ -43,7 +43,6 @@ const TransactionForm = ({ transaction, onSave, onCancel }) => {
       [name]: value
     }));
     
-    // Очищаем ошибку при изменении поля
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -98,10 +97,8 @@ const TransactionForm = ({ transaction, onSave, onCancel }) => {
       };
       
       if (transaction?.id) {
-        // Редактирование существующей транзакции
         await transactionsAPI.update(transaction.id, transactionData);
       } else {
-        // Создание новой транзакции
         await transactionsAPI.create(transactionData);
       }
       

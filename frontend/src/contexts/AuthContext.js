@@ -33,13 +33,10 @@ export const AuthProvider = ({ children }) => {
     return null;
   });
 
-  // Функция для извлечения имени пользователя из декодированного токена
   const extractUserInfo = (decodedToken) => {
     console.log('Decoded JWT token:', decodedToken);
     
-    // Проверяем различные варианты полей, которые могут содержать имя пользователя
     if (decodedToken.sub) {
-      // Стандартное поле JWT для subject (обычно username или userId)
       return {
         ...decodedToken,
         username: decodedToken.sub,
@@ -61,11 +58,10 @@ export const AuthProvider = ({ children }) => {
       };
     }
     
-    // Если ничего не нашли, используем email как отображаемое имя
     if (decodedToken.email) {
       return {
         ...decodedToken,
-        displayName: decodedToken.email.split('@')[0] // Берем часть до @
+        displayName: decodedToken.email.split('@')[0]
       };
     }
     

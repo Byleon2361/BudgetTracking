@@ -27,28 +27,26 @@ const BudgetForm = ({ budget, onSave, onCancel }) => {
     }
   }, [budget]);
 
-const fetchCategories = async () => {
-  try {
-    const response = await categoriesAPI.getAll();
-    // Фильтруем только категории РАСХОДОВ (type = 2)
-    const expenseCategories = response.data.filter(cat => cat.type === 2);
-    setCategories(expenseCategories);
-    
-    if (expenseCategories.length === 0) {
-      setError('Сначала создайте категорию расходов');
+  const fetchCategories = async () => {
+    try {
+      const response = await categoriesAPI.getAll();
+      const expenseCategories = response.data.filter(cat => cat.type === 2);
+      setCategories(expenseCategories);
+      
+      if (expenseCategories.length === 0) {
+        setError('Сначала создайте категорию расходов');
+      }
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+      setError('Ошибка загрузки категорий');
     }
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-    setError('Ошибка загрузки категорий');
-  }
-};
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    // Проверка дат
     const startDate = new Date(formData.startDate);
     const endDate = new Date(formData.endDate);
     

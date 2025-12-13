@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Добавили useNavigate
+import { Link, useNavigate } from 'react-router-dom'; 
 import { transactionsAPI, budgetsAPI } from '../services/api';
 import { formatCurrency, formatDate } from '../utils/formatters';
 
 const Dashboard = () => {
-  const navigate = useNavigate(); // Добавили навигацию
+  const navigate = useNavigate();
   const [balance, setBalance] = useState(0);
   const [currentBudgets, setCurrentBudgets] = useState([]);
   const [recentTransactions, setRecentTransactions] = useState([]);
@@ -46,15 +46,14 @@ const Dashboard = () => {
     .filter(s => s.type === 2)
     .reduce((sum, s) => sum + s.totalAmount, 0);
 
-  // ОБРАБОТЧИКИ КНОПОК
   const handleAddTransaction = () => {
     console.log('Add transaction clicked');
-    navigate('/transactions'); // или navigate('/transactions/new') если есть отдельная страница
+    navigate('/transactions');
   };
 
   const handleAddBudget = () => {
     console.log('Add budget clicked');
-    navigate('/budgets'); // или navigate('/budgets/new')
+    navigate('/budgets');
   };
 
   const handleViewAllBudgets = () => {
@@ -72,16 +71,12 @@ const Dashboard = () => {
     navigate('/categories');
   };
 
-  // Обработчик клика по транзакции
   const handleTransactionClick = (id) => {
     console.log('Transaction clicked:', id);
-    // Можно добавить модальное окно или переход на детальную страницу
   };
 
-  // Обработчик клика по бюджету
   const handleBudgetClick = (id) => {
     console.log('Budget clicked:', id);
-    // Можно добавить модальное окно или переход на детальную страницу
   };
 
   if (loading) {

@@ -6,8 +6,8 @@ import { formatCurrency, formatDate } from '../utils/formatters';
 const Budgets = () => {
   const [budgets, setBudgets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showForm, setShowForm] = useState(false); // для отображения формы
-  const [editingBudget, setEditingBudget] = useState(null); // для редактирования
+  const [showForm, setShowForm] = useState(false);
+  const [editingBudget, setEditingBudget] = useState(null);
 
   useEffect(() => {
     fetchBudgets();
@@ -25,12 +25,12 @@ const Budgets = () => {
   };
 
   const handleAddBudget = () => {
-    setEditingBudget(null); // создание нового
+    setEditingBudget(null);
     setShowForm(true);
   };
 
   const handleEditBudget = (budget) => {
-    setEditingBudget(budget); // редактирование существующего
+    setEditingBudget(budget);
     setShowForm(true);
   };
 
@@ -49,7 +49,7 @@ const Budgets = () => {
   const handleSave = () => {
     setShowForm(false);
     setEditingBudget(null);
-    fetchBudgets(); // обновляем список
+    fetchBudgets();
   };
 
   const handleCancel = () => {

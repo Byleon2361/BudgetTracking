@@ -114,7 +114,6 @@ const styles = {
   },
 };
 
-// Добавляем CSS анимацию
 const styleSheet = document.styleSheets[0];
 if (styleSheet) {
   styleSheet.insertRule(`
